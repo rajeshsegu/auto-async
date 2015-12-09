@@ -1,7 +1,7 @@
 {
   "name": "auto-async",
   "description": "auto run async dependencies",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Rajesh Segu <rajesh.segu@gmail.com>",
   "keywords": [
     "async",
