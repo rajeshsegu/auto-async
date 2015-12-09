@@ -1,6 +1,13 @@
 # auto-async
 
-Auto magically resolves async dependencies on the fly and also eagerly walks though the tree instead of failing on the first error.
+Auto magically resolves async dependencies on the fly. In addition to what `async.auto` and `autorun` does, auto-async does resolve all the possible async tasks by not stopping on the first error.
+
+## Usage
+
+```javascript
+var autoAsync = require('auto-async');
+autoAsync(asyncDef, callback, continueOnError);
+```
 
 ## Code
 
@@ -19,39 +26,24 @@ var asyncDef = {
   c: ['b', function c(cb, results) {
     console.log('c');
     cb(null, {key: 'c'});
-  }],
-  d: ['c', function d(cb, results) {
-    console.log('d');
-    cb(true, {key: 'd'});
-  }],
-  e: ['d', function e(cb, results) {
-    console.log('e');
-    cb(true, {key: 'e'});
-  }],
-  f: ['e', function f(cb, results) {
-    console.log('f');
-    cb(null, {key: 'f'});
-  }],
-  g: ['c', function g(cb, results) {
-    console.log('g');
-    cb(null, {key: 'g'});
   }]
 };
 
 autoAsync(asyncDef, function onResponse(err, results, state) {
-    // err - in case graph fails
+    // err - first error encountered
     // results - all resolved nodes
     // state - status of each node err/response
 });
 ```
 
-By default autoAsync() fails on the first error just like async.auto(), but you could enable `continueOnError` by passing an extra boolean.
+### continueOnError
+
+continueOnError flag controls if the async resolution should stop on the first error or continue to resolve as many async tasks as possible.
 
 ```
 autoAsync(asyncDef, function onResponse(err, results, state) {
     // err - in case graph fails
-    // results - all resolved nodes
+    // results - all possible resolved nodes
     // state - status of each node err/response
 }, true);
 ```
-
