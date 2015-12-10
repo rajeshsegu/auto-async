@@ -40,7 +40,7 @@ autoAsync(asyncDef, function onResponse(err, results, state) {
 
 continueOnError flag controls if the async resolution should stop on the first error or continue to resolve as many async tasks as possible.
 
-```
+```javascript
 autoAsync(asyncDef, function onResponse(err, results, state) {
     // err - in case graph fails
     // results - all possible resolved nodes
